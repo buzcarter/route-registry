@@ -14,6 +14,10 @@
   ],
   "author": "Nouman Saleem",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/NoumanSaleem/route-registry"
+  },
   "dependencies": {
     "underscore": "~1.6.0"
   }
