@@ -1,6 +1,6 @@
 {
   "name": "route-registry",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Express route registry.",
   "main": "index.js",
   "scripts": {
