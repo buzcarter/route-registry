@@ -1,6 +1,6 @@
 {
   "name": "route-registry",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Express route registry.",
   "main": "index.js",
   "scripts": {
@@ -16,5 +16,8 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/NoumanSaleem/route-registry"
+  },
+  "dependencies": {
+    "path-to-regexp": "^0.1.2"
   }
 }
