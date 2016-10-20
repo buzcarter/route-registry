@@ -21,8 +21,13 @@ const RoutesConfig = {
   },
   noKeys: {
     path: '/pizza/neat'
+  },
+  invalidKays: {
+    path: '/:/:'
   }
 };
+
+var FORCE_UNDEFINED;
 
 const LinkTests = [{
   routeName: 'blogPost',
@@ -39,7 +44,7 @@ const LinkTests = [{
     id: 90004
   },
   expected: 'http://www.mydomainname.com/:title-90004/article',
-  description: 'param with underscore suffix'
+  description: 'Param with underscore suffix'
 }, {
   routeName: 'relativeBlogPost',
   params: {
@@ -55,19 +60,19 @@ const LinkTests = [{
     id: 500444,
     title: 'do-not-use'
   },
-  expected: '/my-articles/family/overview/another-folder/:page(\\d+)',
-  description: 'Extra params and one missing'
+  expected: '/my-articles/family/overview/another-folder/:page',
+  description: 'Extra and missing params'
 }, {
   routeName: 'videoPlaylistVideoThemed',
   params: {
-    theme: 'superman-is-lame_', // null
-    playlistName: 183002, // FORCE_UNDEFINED
-    playlistId: '', // [],
-    videoTitle: -1, // {},
-    videoId: 0, // new Date()
+    theme: null,
+    playlistName: FORCE_UNDEFINED,
+    playlistId: [],
+    videoTitle: {},
+    videoId: new Date()
   },
-  expected: '/videos/superman-is-lame_/183002-/-1-0',
-  description: 'Video Playlist (Themed), incorrect param data types'
+  expected: '/videos/:theme/:playlistName-:playlistId/:videoTitle-:videoId',
+  description: 'Incorrect param data types'
 }, {
   routeName: 'noKeys',
   params: {
@@ -87,6 +92,13 @@ const LinkTests = [{
   },
   expected: 'http://www.mydomainname.com/superman:identity-challenged:idealogue-man:idefinite-40044/article',
   description: 'Multiple possible ":id" param matches within title'
+}, {
+  routeName: 'invalidKays',
+  params: {
+    ':': 'unexpected'
+  },
+  expected: '/:/:',
+  description: 'Failed cookies'
 }];
 
 for (var routeName in RoutesConfig) {
@@ -95,7 +107,7 @@ for (var routeName in RoutesConfig) {
   }
 }
 
-describe('Correct Links', function () {
+describe('Link Building: ', function () {
   LinkTests.forEach(function (value) {
     it(value.description + ' (route: ' + value.routeName + ')', function () {
       assert.equal(routeRegistry.link[value.routeName](value.params), value.expected);
