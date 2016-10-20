@@ -4,7 +4,7 @@
   "description": "Express route registry.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive"
   },
   "keywords": [
     "Express",
@@ -16,6 +16,9 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/NoumanSaleem/route-registry"
+  },
+  "devDependencies": {
+    "mocha": "*"
   },
   "dependencies": {
     "path-to-regexp": "^0.1.2"
