@@ -7,7 +7,7 @@ const assert = require('assert');
 
 const RoutesConfig = {
   blogPost: {
-    path: 'http://www.mydomainname.com/:title:id/article',
+    path: 'http://www.mydomainname.com/:title-:id/article',
     get: 'noop'
   },
   relativeBlogPost: {
@@ -30,7 +30,7 @@ const LinkTests = [{
     title: 'pickles-mcgee',
     id: 90003
   },
-  expected: 'http://www.mydomainname.com/pickles-mcgee90003/article',
+  expected: 'http://www.mydomainname.com/pickles-mcgee-90003/article',
   description: 'Basic, safe'
 }, {
   routeName: 'blogPost',
@@ -38,7 +38,7 @@ const LinkTests = [{
     title_: 'superman-is-lame_',
     id: 90004
   },
-  expected: 'http://www.mydomainname.com/:title90004/article',
+  expected: 'http://www.mydomainname.com/:title-90004/article',
   description: 'param with underscore suffix'
 }, {
   routeName: 'relativeBlogPost',
@@ -79,6 +79,14 @@ const LinkTests = [{
   },
   expected: '/pizza/neat',
   description: 'No Keys in path definition'
+}, {
+  routeName: 'blogPost',
+  params: {
+    title: 'superman:identity-challenged:idealogue-man:idefinite',
+    id: 40044
+  },
+  expected: 'http://www.mydomainname.com/superman:identity-challenged:idealogue-man:idefinite-40044/article',
+  description: 'Multiple possible ":id" param matches within title'
 }];
 
 for (var routeName in RoutesConfig) {
@@ -89,7 +97,7 @@ for (var routeName in RoutesConfig) {
 
 describe('Correct Links', function () {
   LinkTests.forEach(function (value) {
-    it('(' + value.description + ') Route: ' + value.routeName, function () {
+    it(value.description + ' (route: ' + value.routeName + ')', function () {
       assert.equal(routeRegistry.link[value.routeName](value.params), value.expected);
     });
   });
