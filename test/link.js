@@ -24,6 +24,9 @@ const RoutesConfig = {
   },
   invalidKays: {
     path: '/:/:'
+  },
+  imageCdn: {
+    path: '//cdn.mydomain.com/pictures/:width/:height/:quality/:filename'
   }
 };
 
@@ -99,6 +102,16 @@ const LinkTests = [{
   },
   expected: '/:/:',
   description: 'Failed cookies'
+}, {
+  routeName: 'imageCdn',
+  params: {
+    width: 0,
+    height: 0,
+    quality: 0,
+    filename: ''
+  },
+  expected: '//cdn.mydomain.com/pictures/0/0/0/:filename',
+  description: 'Supply "empty" params: zero and empty string'
 }];
 
 for (var routeName in RoutesConfig) {
