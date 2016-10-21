@@ -112,6 +112,11 @@ const LinkTests = [{
   },
   expected: '//cdn.mydomain.com/pictures/0/0/0/:filename',
   description: 'Supply "empty" params: zero and empty string'
+}, {
+  routeName: 'imageCdn',
+  params: FORCE_UNDEFINED,
+  expected: '//cdn.mydomain.com/pictures/:width/:height/:quality/:filename',
+  description: 'Do not supply params object'
 }];
 
 for (var routeName in RoutesConfig) {
